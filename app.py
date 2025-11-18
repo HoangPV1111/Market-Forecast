@@ -63,10 +63,18 @@ st.markdown("""
         flex: 1;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
         transition: box-shadow 0.15s ease;
+        min-height: 120px;
     }
     
     .metric-card:hover {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    .metric-card img {
+        border-radius: 4px;
+        object-fit: cover;
+        width: 100%;
+        height: auto;
     }
     
     .metric-label {
@@ -303,14 +311,14 @@ if st.session_state.forecast_data is not None:
     forecast_df = st.session_state.forecast_data
     total_forecast = st.session_state.base_forecast_7_days
     
-    # Top metrics row
-    col1, col2, col3, col4 = st.columns(4)
+    # Top metrics row with product image
+    col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
     
     with col1:
         st.markdown("""
             <div class='metric-card'>
                 <div class='metric-label'>Tổng Dự Báo</div>
-                <div class='metric-value'>{:.1f} kg</div>
+                <div class='metric-value metric-value-red'>{:.1f} kg</div>
                 <div class='metric-subtitle'>7 ngày tới</div>
             </div>
         """.format(total_forecast), unsafe_allow_html=True)
@@ -330,35 +338,31 @@ if st.session_state.forecast_data is not None:
             <div class='metric-card'>
                 <div class='metric-label'>Sản Phẩm</div>
                 <div class='metric-value' style='font-size: 1.125rem;'>{}</div>
-                <div class='metric-subtitle'>SKU đã chọn</div>
+                <div class='metric-subtitle'>SKU: {}</div>
             </div>
-        """.format(selected_product_name[:20] + "..." if len(selected_product_name) > 20 else selected_product_name), unsafe_allow_html=True)
+        """.format(selected_product_name[:20] + "..." if len(selected_product_name) > 20 else selected_product_name, selected_sku), unsafe_allow_html=True)
     
     with col4:
-        # Get current stock from inventory
-        try:
-            inventory_df = pd.read_csv('current_inventory.csv')
-            current_stock_row = inventory_df[inventory_df['sku'] == selected_sku]
-            if not current_stock_row.empty:
-                current_stock = current_stock_row['stock_on_hand_kg'].values[0]
-                stock_status = "Đủ Hàng" if current_stock > total_forecast else "Cần Nhập"
-                status_class = "status-healthy" if current_stock > total_forecast else "status-risk"
-            else:
-                stock_status = "Chưa Rõ"
-                status_class = "status-warning"
-                current_stock = 0
-        except:
-            stock_status = "Chưa Rõ"
-            status_class = "status-warning"
-            current_stock = 0
+        # Display product image
+        import os
+        image_path = f'product_images/{selected_sku}.png'
         
-        st.markdown("""
-            <div class='metric-card'>
-                <div class='metric-label'>Trạng Thái Tồn</div>
-                <div class='metric-value' style='font-size: 1.125rem;'><span class='status-badge {}'>{}</span></div>
-                <div class='metric-subtitle'>{:.1f} kg tồn kho</div>
-            </div>
-        """.format(status_class, stock_status, current_stock), unsafe_allow_html=True)
+        if os.path.exists(image_path):
+            st.markdown("""
+                <div class='metric-card' style='padding: 0.75rem; display: flex; align-items: center; justify-content: center;'>
+            """, unsafe_allow_html=True)
+            st.image(image_path, use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            # Placeholder if image doesn't exist
+            st.markdown("""
+                <div class='metric-card' style='padding: 0.75rem; display: flex; align-items: center; justify-content: center; min-height: 150px; background: #f9fafb;'>
+                    <div style='text-align: center; color: #9ca3af;'>
+                        <div style='font-size: 2rem; margin-bottom: 0.5rem;'>📦</div>
+                        <div style='font-size: 0.75rem;'>Chưa có ảnh</div>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
     
     st.markdown("<div style='margin: 2rem 0;'></div>", unsafe_allow_html=True)
     
