@@ -281,7 +281,7 @@ with col2:
                     # Call run_waste_simulation
                     simulation_results = run_waste_simulation(
                         sku_id=st.session_state.selected_sku,
-                        base_forecast_7_days=st.session_state.base_forecast_7_days,
+                        base_forecast_days=st.session_state.base_forecast_7_days,
                         discount_percentage=discount_decimal
                     )
                     
