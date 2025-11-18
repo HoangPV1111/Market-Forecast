@@ -316,7 +316,7 @@ with col2:
                     with col_waste2:
                         waste_delta = simulation_results['promo_waste_kg'] - simulation_results['base_waste_kg']
                         st.metric(
-                            label="♻️ Promo Waste",
+                            label="Promo Waste",
                             value=f"{simulation_results['promo_waste_kg']:.2f} kg",
                             delta=f"{waste_delta:.2f} kg",
                             delta_color="inverse",
