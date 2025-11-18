@@ -311,8 +311,8 @@ if st.session_state.forecast_data is not None:
     forecast_df = st.session_state.forecast_data
     total_forecast = st.session_state.base_forecast_7_days
     
-    # Top metrics row with product image
-    col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
+    # Top metrics row
+    col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
@@ -341,28 +341,6 @@ if st.session_state.forecast_data is not None:
                 <div class='metric-subtitle'>SKU: {}</div>
             </div>
         """.format(selected_product_name[:20] + "..." if len(selected_product_name) > 20 else selected_product_name, selected_sku), unsafe_allow_html=True)
-    
-    with col4:
-        # Display product image
-        import os
-        image_path = f'product_images/{selected_sku}.png'
-        
-        if os.path.exists(image_path):
-            st.markdown("""
-                <div class='metric-card' style='padding: 0.75rem; display: flex; align-items: center; justify-content: center;'>
-            """, unsafe_allow_html=True)
-            st.image(image_path, use_container_width=True)
-            st.markdown("</div>", unsafe_allow_html=True)
-        else:
-            # Placeholder if image doesn't exist
-            st.markdown("""
-                <div class='metric-card' style='padding: 0.75rem; display: flex; align-items: center; justify-content: center; min-height: 150px; background: #f9fafb;'>
-                    <div style='text-align: center; color: #9ca3af;'>
-                        <div style='font-size: 2rem; margin-bottom: 0.5rem;'>📦</div>
-                        <div style='font-size: 0.75rem;'>Chưa có ảnh</div>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
     
     st.markdown("<div style='margin: 2rem 0;'></div>", unsafe_allow_html=True)
     
