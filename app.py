@@ -10,197 +10,226 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS - Winmart B2B Professional Dashboard (Red & White Theme)
+# Custom CSS - Professional Data-Centric Dashboard (Prediko-inspired, Red & White)
 st.markdown("""
     <style>
-    /* Global styles */
+    /* Global styles - Clean white background with maximum readability */
     .main {
         background-color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
     }
     
-    /* Header styles */
+    /* Minimalist header - Less dominant */
     .main-header {
-        font-size: 1.875rem;
-        font-weight: 700;
+        font-size: 1.5rem;
+        font-weight: 600;
         color: #1a1a1a;
-        margin-bottom: 0.5rem;
-        letter-spacing: -0.4px;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        margin-bottom: 0.25rem;
+        letter-spacing: -0.3px;
     }
     .sub-header {
-        font-size: 0.9375rem;
-        color: #666666;
-        margin-bottom: 2rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
         font-weight: 400;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
     }
     
-    /* Section headers */
+    /* Filter bar - Compact and integrated */
+    .filter-bar {
+        background: white;
+        padding: 0.875rem 1.25rem;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Section headers - Subtle and clean */
     .section-header {
-        font-size: 1.125rem;
+        font-size: 0.9375rem;
         font-weight: 600;
-        color: #d71921;
-        margin-bottom: 1.25rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 2px solid #d71921;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #374151;
+        margin-bottom: 1rem;
+        padding-bottom: 0;
+        border-bottom: none;
     }
     
-    /* Metric cards */
+    /* Integrated KPI cards - Tight grouping */
     .metric-card {
         background: white;
-        padding: 1.5rem;
-        border-radius: 4px;
-        border: 1px solid #e6e6e6;
+        padding: 1.25rem 1.5rem;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
         flex: 1;
-        box-shadow: 0 1px 3px rgba(215, 25, 33, 0.08);
-        transition: box-shadow 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        transition: box-shadow 0.15s ease;
     }
     
     .metric-card:hover {
-        box-shadow: 0 2px 6px rgba(215, 25, 33, 0.12);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
     }
     
     .metric-label {
-        font-size: 0.75rem;
-        color: #666666;
-        font-weight: 600;
-        margin-bottom: 0.625rem;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        font-size: 0.8125rem;
+        color: #6b7280;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-transform: none;
+        letter-spacing: 0;
     }
     
     .metric-value {
-        font-size: 2rem;
+        font-size: 1.875rem;
         font-weight: 700;
-        color: #d71921;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #1a1a1a;
         line-height: 1.2;
     }
     
-    .metric-subtitle {
-        font-size: 0.8125rem;
-        color: #999999;
-        margin-top: 0.5rem;
-        font-weight: 400;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+    .metric-value-red {
+        color: #d71921;
     }
     
-    /* Status badges */
-    .status-badge {
+    .metric-subtitle {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-top: 0.375rem;
+        font-weight: 400;
+    }
+    
+    .metric-trend {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        margin-top: 0.375rem;
+    }
+    
+    .trend-up {
+        color: #d71921;
+    }
+    
+    .trend-down {
+        color: #9ca3af;
+    }
+    
+    /* Status tags - Rectangular, integrated */
+    .status-tag {
         display: inline-block;
-        padding: 0.375rem 0.875rem;
+        padding: 0.25rem 0.625rem;
         border-radius: 3px;
         font-size: 0.75rem;
         font-weight: 600;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
     }
     
     .status-healthy {
-        background: #f0f9ff;
+        background: #e0f2fe;
         color: #0369a1;
-        border: 1px solid #bae6fd;
     }
     
     .status-risk {
-        background: #fff5f5;
-        color: #d71921;
-        border: 1px solid #fecaca;
+        background: #d71921;
+        color: white;
     }
     
     .status-warning {
-        background: #fffbeb;
-        color: #d97706;
-        border: 1px solid #fde68a;
+        background: #fef3c7;
+        color: #92400e;
     }
     
-    /* Table container */
-    .table-container {
+    /* Unified chart container */
+    .chart-container {
         background: white;
-        border-radius: 4px;
-        border: 1px solid #e6e6e6;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
         padding: 1.5rem;
-        box-shadow: 0 1px 3px rgba(215, 25, 33, 0.08);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     
-    /* Sidebar styling */
-    [data-testid="stSidebar"] {
-        background-color: #fafafa;
-        border-right: 2px solid #d71921;
-    }
-    
-    [data-testid="stSidebar"] .stSelectbox label {
+    .chart-title {
+        font-size: 0.9375rem;
         font-weight: 600;
         color: #1a1a1a;
-        font-size: 0.875rem;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        margin-bottom: 1rem;
     }
     
-    /* Button styling */
+    /* Action card - Distinct visual treatment */
+    .action-card {
+        background: #fafafa;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        padding: 1.5rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Hide sidebar by default */
+    [data-testid="stSidebar"] {
+        display: none;
+    }
+    
+    /* Button styling - Red primary action */
     .stButton > button {
         background-color: #d71921;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 5px;
         font-weight: 600;
-        letter-spacing: 0.3px;
-        font-size: 0.9375rem;
-        padding: 0.625rem 1.25rem;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        transition: background-color 0.2s ease;
+        font-size: 0.875rem;
+        padding: 0.625rem 1.5rem;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 2px rgba(215, 25, 33, 0.1);
     }
     
     .stButton > button:hover {
-        background-color: #b91419;
-        color: white;
+        background-color: #b01419;
+        box-shadow: 0 2px 4px rgba(215, 25, 33, 0.2);
     }
     
-    /* Metric styling */
+    /* Streamlit metric styling */
     [data-testid="stMetricValue"] {
-        font-size: 1.625rem;
+        font-size: 1.5rem;
         font-weight: 700;
-        color: #d71921;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        color: #1a1a1a;
     }
     
     [data-testid="stMetricLabel"] {
         font-size: 0.8125rem;
-        color: #666666;
+        color: #6b7280;
+        font-weight: 500;
+        text-transform: none;
+    }
+    
+    [data-testid="stMetricDelta"] {
+        font-size: 0.8125rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
     }
     
-    /* Table styling */
+    /* Table styling - Clean, minimal lines */
     [data-testid="stDataFrame"] {
-        border: 1px solid #e6e6e6;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+        border: none;
     }
     
-    /* Chart container */
-    .chart-container {
-        background: white;
-        border-radius: 4px;
-        border: 1px solid #e6e6e6;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 1px 3px rgba(215, 25, 33, 0.08);
+    /* Slider styling - Red accent */
+    .stSlider > div > div > div > div {
+        background-color: #d71921;
     }
     
     /* Info/Success/Error messages */
     .stAlert {
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        border-radius: 4px;
+        border-radius: 5px;
+        border: 1px solid #e5e7eb;
+    }
+    
+    /* Selectbox styling */
+    [data-testid="stSelectbox"] label {
+        font-size: 0.8125rem;
+        color: #374151;
+        font-weight: 500;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Title and description
-st.markdown('<div class="main-header">Quản Lý Dự Báo Nhu Cầu</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Phân tích dữ liệu bán hàng và lập kế hoạch tồn kho tối ưu</div>', unsafe_allow_html=True)
+# Title and description - More subtle
+st.markdown('<div class="main-header">Dự Báo Nhu Cầu</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Phân tích và tối ưu tồn kho</div>', unsafe_allow_html=True)
 
 # Initialize session state
 if 'forecast_data' not in st.session_state:
@@ -210,59 +239,45 @@ if 'base_forecast_7_days' not in st.session_state:
 if 'selected_sku' not in st.session_state:
     st.session_state.selected_sku = None
 
-# Sidebar
-with st.sidebar:
-    st.markdown("### Bộ Lọc & Cài Đặt")
+# Integrated filter bar (replacing sidebar)
+try:
+    product_dict = get_product_list()
+    product_names = list(product_dict.keys())
     
-    # Load product list
-    try:
-        product_dict = get_product_list()
-        product_names = list(product_dict.keys())
-        
-        # Product selection dropdown
+    # Filter bar layout
+    filter_col1, filter_col2, filter_col3 = st.columns([2, 1, 1])
+    
+    with filter_col1:
         selected_product_name = st.selectbox(
-            "Chọn Sản Phẩm",
+            "Sản phẩm",
             options=product_names,
             index=0,
             help="Chọn sản phẩm để phân tích"
         )
-        
-        # Get corresponding SKU
+    
+    with filter_col2:
         selected_sku = product_dict[selected_product_name]
         st.session_state.selected_sku = selected_sku
-        
-        # Display selected SKU
         st.markdown(f"""
-            <div style='background: white; border: 1px solid #e6e6e6; padding: 0.875rem; border-radius: 4px; margin: 1.25rem 0; box-shadow: 0 1px 2px rgba(215, 25, 33, 0.06);'>
-                <div style='font-size: 0.6875rem; color: #666666; font-weight: 600; margin-bottom: 0.375rem; text-transform: uppercase; letter-spacing: 0.8px;'>MÃ SKU</div>
-                <div style='font-size: 1.0625rem; font-weight: 700; color: #d71921;'>{selected_sku}</div>
+            <div style='padding-top: 1.75rem;'>
+                <span style='font-size: 0.8125rem; color: #6b7280; font-weight: 500;'>SKU: </span>
+                <span style='font-size: 0.875rem; color: #d71921; font-weight: 600;'>{selected_sku}</span>
             </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
-        
-        # Forecast button
+    
+    with filter_col3:
+        st.markdown("<div style='padding-top: 0.5rem;'></div>", unsafe_allow_html=True)
         generate_forecast_btn = st.button(
             "Tạo Dự Báo",
             type="primary",
             use_container_width=True
         )
-        
-        st.markdown("<div style='margin: 2rem 0; border-top: 2px solid #d71921;'></div>", unsafe_allow_html=True)
-        
-        # Quick stats
-        st.markdown("""
-            <div style='font-size: 0.875rem; color: #666666; font-family: "Segoe UI", Tahoma, sans-serif;'>
-                <div style='font-weight: 600; color: #1a1a1a; margin-bottom: 0.875rem; font-size: 0.9375rem;'>Hướng Dẫn Nhanh</div>
-                <div style='margin-bottom: 0.625rem; line-height: 1.6;'>1. Chọn sản phẩm cần phân tích</div>
-                <div style='margin-bottom: 0.625rem; line-height: 1.6;'>2. Nhấn "Tạo Dự Báo" để xem kết quả</div>
-                <div style='margin-bottom: 0.625rem; line-height: 1.6;'>3. Điều chỉnh giảm giá và mô phỏng</div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-    except Exception as e:
-        st.error(f"Lỗi tải danh sách sản phẩm: {str(e)}")
-        generate_forecast_btn = False
+    
+    st.markdown("<div style='margin: 1.5rem 0;'></div>", unsafe_allow_html=True)
+    
+except Exception as e:
+    st.error(f"Lỗi tải danh sách sản phẩm: {str(e)}")
+    generate_forecast_btn = False
 
 # Main content area - Full width layout
 # Forecast Section
